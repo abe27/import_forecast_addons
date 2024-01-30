@@ -117,12 +117,12 @@
                                     <tree>
                                         <field name="seq" string="No." />
                                         <field name="part_id" string="Part Code" />
-                                        <field name="part_name" string="Part Name" />
+                                        <!-- <field name="part_name" string="Part Name" /> -->
                                         <field name="qty" string="N" />
                                         <field name="month_1" string="N+1" />
                                         <field name="month_2" string="N+2" />
                                         <field name="month_3" string="N+3" />
-                                        <field name="create_date" string="Created On" />
+                                        <!-- <field name="create_date" string="Created On" /> -->
                                     </tree>
                                 </field>
                             </page>
