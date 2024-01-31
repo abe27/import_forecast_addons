@@ -16,7 +16,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'web', 'mail','product'],
+    'depends': ['base', 'web', 'mail', 'product'],
 
     # always loaded
     'data': [
@@ -29,8 +29,16 @@
     'demo': [
         'demo/demo.xml',
     ],
+    'assets': {
+        'web.assets_backend': {
+            '/import_forecast/static/src/css/progress_bar_widget.css',
+            '/import_forecast/static/src/js/progress_bar_widget.js',
+        },
+        'web.assets_qweb': {
+            '/import_forecast/static/src/xml/progress_bar_widget.xml',
+        },
+    },
     "application": True,
     'installable': True,  # installable คือ ระบุว่าโมดูลสามารถติดตั้งได้หรือไม่
     'auto_install': False,  # auto_install คือ ระบุว่าโมดูลจะติดตั้งโดยอัตโนมัติหรือไม่
 }
-
