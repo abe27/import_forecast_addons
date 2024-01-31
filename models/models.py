@@ -106,8 +106,9 @@ class Forecast(models.Model):
                         partN2 = float(str(r[5]))
                         partN3 = float(str(r[6]))
                         # print(f"partCode: {partCode} partN: {partN}")
-                        ### Get Product Data
-                        prodID = self.env['product.product'].search([('default_code', '=', partCode)], limit=1)
+                        # Get Product Data
+                        prodID = self.env['product.product'].search(
+                            [('default_code', '=', partCode)], limit=1)
                         # print(f"prodID: {prodID}")
                         self.env["import_forecast.forecast_detail"].create({
                             "seq": seq,
@@ -121,7 +122,7 @@ class Forecast(models.Model):
                         # print(f"Insert ID: {req.id}")
                 seq += 1
             # print(f"Total: {seq}")
-            
+
         return req
 
     @api.onchange('file_forecast')
@@ -144,7 +145,7 @@ class Forecast(models.Model):
                     # partN1 = float(str(r[4]))
                     # partN2 = float(str(r[5]))
                     # partN3 = float(str(r[6]))
-                    
+
                     prodID = self.env['product.product'].search(
                         [('default_code', '=', partCode)])
                     if len(prodID) == 0:
