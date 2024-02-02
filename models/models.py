@@ -66,9 +66,21 @@ class Forecast(models.Model):
             r.partner_email = r.partner_id.email
             r.partner_website = r.partner_id.website
             tags = []
+            docs = []
             for tag in r.partner_id.category_id:
+                # print(f"Label: {tag.name}")
                 tags.append(tag.name)
+                prodTemp = self.env["product.template"].search([("product_tag_ids","=",tag.name)])
+                for p in prodTemp:
+                    if (p.id in docs) is False:
+                        docs.append(p.id)
+                        
             r.partner_tag = ",".join(tags)
+            # print(f"Context: {docs}")
+            # ctx = {'tags_id' : docs}
+            # self.partner_id(context=ctx)
+            # context = dict(self.env.context)
+            # print(context)
             
     ### Override Create Methods #####
     @api.model_create_multi
