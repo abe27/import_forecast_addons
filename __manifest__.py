@@ -16,18 +16,26 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'web', 'mail', 'product'],
+    'depends': ['base', 'web', 'mail','stock'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-        'views/forecast_view.xml'
+        'views/forecast_view.xml',
+        'views/forecast_detail_view.xml',
+        # 'demo/partner.xml',
+        # 'demo/part_category.xml',
+        # 'demo/part_tag.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
+        'demo/partner.xml',
+        'demo/part_category.xml',
+        'demo/part_tag.xml',
+        'demo/part_list.xml'
     ],
     'assets': {
         'web.assets_backend': {

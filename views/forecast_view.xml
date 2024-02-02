@@ -16,15 +16,19 @@
                                     </div>
                                     <div class="col">
                                         <div class="">
-                                            <div class="pr-5">
+                                            <div class="p-2">
                                                 <div class="p-1">
                                                     <field name="partner_id" class="text-primary" />
                                                 </div>
-                                                <div class="p-1"> On Month:<field name="_on_month"
-                                                        string="On Month:" />
+                                                <div class="p-1">On Month:<field name="_on_month" class="text-info" />
                                                 </div>
-                                                <div class="p-1">
-                                                    <field name="revise_level" string="Revise:" />
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <field name="revise_level" string="Revise:" widget="badge" />
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <field name="is_status" widget="badge" decoration-success="is_status == '2'" decoration-primary="is_status == '1'" decoration-danger="is_status == '0'"/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -55,11 +59,14 @@
             <field name="model">import_forecast.forecast</field>
             <field name="arch" type="xml">
                 <form>
+                    <header class="d-flex d-flex justify-content-end">
+                        <field name="is_status" widget="statusbar"  />
+                    </header>
                     <sheet>
                         <group col="2">
                             <group col="1">
                                 <group>
-                                    <field name="partner_id" />
+                                    <field name="partner_id" attrs="{'readonly':[('line_ids','!=', [])]}"/>
                                 </group>
                                 <group>
                                     <field name="partner_street" string="Street" class="text-info" />
@@ -91,6 +98,9 @@
                                 <group>
                                     <field name="partner_website" string="Website" class="text-info" />
                                 </group>
+                                <group>
+                                    <field name="partner_tag" string="Tags" class="text-info" />
+                                </group>
                                 <separator colspan="1" />
                             </group>
                             <group>
@@ -101,27 +111,28 @@
                         <separator colspan="4" />
                         <group col="4">
                             <group col="2">
-                                <field name="on_month" widget="date" />
+                                <field name="on_month" widget="date" attrs="{'readonly':[('line_ids','!=', [])]}"/>
                             </group>
                             <group col="1">
-                                <field name="revise_level" />
+                                <field name="revise_level" attrs="{'readonly':[('line_ids','!=', [])]}"/>
                             </group>
                         </group>
                         <group col="4">
                             <field name="file_forecast_name" invisible="1" />
-                            <field name="file_forecast" filename="file_forecast_name" />
+                            <field name="file_forecast" filename="file_forecast_name" attrs="{'readonly':[('line_ids','=', [])]}"/>
                         </group>
                         <notebook>
                             <page name="Forecast Detail">
-                                <field name="line_ids" create="1" delete="0" readonly="1">
+                                <field name="line_ids" widget="one2many_list" editable="top" >
                                     <tree>
                                         <field name="seq" string="No." />
-                                        <field name="part_id" string="Part Code" />
+                                        <field name="part_id" string="Part Code"/>
                                         <!-- <field name="part_name" string="Part Name" /> -->
                                         <field name="qty" string="N" />
                                         <field name="month_1" string="N+1" />
                                         <field name="month_2" string="N+2" />
                                         <field name="month_3" string="N+3" />
+                                        <field name="is_match" widget="badge" decoration-primary="is_match == '1'" decoration-danger="is_match == '0'"/>
                                         <!-- <field name="create_date" string="Created On" /> -->
                                     </tree>
                                 </field>
@@ -137,6 +148,9 @@
             </field>
         </record>
 
+        <!-- Form View Filter Product By Tag -->
+        <!-- End Form View Filter Product By Tag -->
+
         <record id="import_forecast.calendar" model="ir.ui.view">
             <field name="name">นำเข้าข้อมูล Forecast</field>
             <field name="model">import_forecast.forecast</field>
@@ -145,36 +159,6 @@
                     <field name="name" />
                     <field name="revise_level" />
                 </calendar>
-            </field>
-        </record>
-
-        <record id="import_forecast.gantt" model="ir.ui.view">
-            <field name="name">นำเข้าข้อมูล Forecast</field>
-            <field name="model">import_forecast.forecast</field>
-            <field name="arch" type="xml">
-                <gantt string="ข้อมูล Forecast" date_start="on_month" date_stop="create_date"
-                    defualt_group_by="partner_id">
-                </gantt>
-            </field>
-        </record>
-
-        <record id="import_forecast_forecast_detail_form" model="ir.ui.view">
-            <field name="name">นำเข้าข้อมูล Forecast</field>
-            <field name="model">import_forecast.forecast_detail</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
-                        <group>
-                            <field name="forecast_id" />
-                            <field name="part_id" />
-                            <field name="part_name" />
-                            <field name="qty" />
-                            <field name="month_1" />
-                            <field name="month_2" />
-                            <field name="month_3" />
-                        </group>
-                    </sheet>
-                </form>
             </field>
         </record>
     </data>
